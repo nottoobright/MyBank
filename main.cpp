@@ -388,7 +388,13 @@ void transact(int sender, int receiver, int amt)
 	{
 		File.read(reinterpret_cast<char *> (&ac), sizeof(account));
 		if(ac.getaccnum()==sender){
-           ac.draw(amt);
+           if(ac.getdeposit() > amt){
+                ac.draw(amt);
+           }
+           else{
+            cout<<"\n\t\t\tInsufficient Balance";
+            break;
+           }
 		}
 		File.read(reinterpret_cast<char *> (&bc), sizeof(account));
 		if(bc.getaccnum()==receiver){
